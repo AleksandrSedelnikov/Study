@@ -9,5 +9,9 @@
   <h4 align="left"> • Верное количество введённых параметров.</h4>
   <h4 align="left"> • Правильного условия при вопросе о продолжении выполнения скрипта.</h4>
   <h4 align="left"> • Решение пользователя на добавление пустой строчки в файл.</h4>
+  <h3 aligin="center">Запуск скрипта:</h3>
+  <h4 align="left"> • Введите команду ./"name_script" start </h4>
+  <h6 align="left"> ~ P.s. скрипт не работает при попытке запуска командой sh "name_script" start </h6>
+  <h6 align="left"> ~ работа над устранением данной ошибки ведётся.</h6>
   <h5 align="right"> author: Aleksandr Sedelnikov</h5>
   <h5 align="right"> link: https://t.me/aleksandrsedelnikov</h5>
