@@ -1,0 +1,9 @@
+<h1 align="center">add_git</h1>
+  <h2 align="center">Скрипт для автоматической загрузки всех созданных, изменённых файлов или папок(которые не находятся в файле .gitignore) на гитхаб.</h2>
+  <h3 align="left">Скрипт выполняет следующие действия:</h3>
+  <h4 align="left"> • Добавляет изменённые, созданные файлы или папки на гитхаб.</h4>
+  <h3 aligin="center">Запуск скрипта:</h3>
+  <h4 align="left"> • Введите команду g++ add_git.cpp -o add_git в терминал программы Visual Studio Code.</h4>
+  <h4 align="left"> • Введите команду ./add_git в терминал программы Visual Studio Code.</h4>
+  <h5 align="right"> author: Aleksandr Sedelnikov</h5>
+  <h5 align="right"> link: https://t.me/aleksandrsedelnikov</h5>
