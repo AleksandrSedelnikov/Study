@@ -3,6 +3,7 @@
   <h3 align="left">Скрипт выполняет следующие действия:</h3>
   <h4 align="left"> • Добавляет изменённые, созданные файлы или папки на гитхаб с коммитом "upd:Ваше время на момент запуска скрипта".</h4>
   <h3 aligin="center">Запуск скрипта:</h3>
+  <h4 align="left"> • Добавьте данный файл в программу Visual Studio Code.</h4>
   <h4 align="left"> • Введите команду g++ add_git.cpp -o add_git в терминал программы Visual Studio Code.</h4>
   <h4 align="left"> • Введите команду ./add_git в терминал программы Visual Studio Code.</h4>
   <h5 align="right"> author: Aleksandr Sedelnikov</h5>
