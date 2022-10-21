@@ -2,6 +2,7 @@
 #include <math.h>
 #include <ctime>
 #include <string.h>
+
 using namespace std;
 
 int main(){
