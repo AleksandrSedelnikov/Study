@@ -17,7 +17,7 @@ int main(){
     //char s[] = "git commit -m 'upd: " + *dt;//
     //const string cmd = strcat(s,dt);//
     //cout<<cmd<<endl;// 
-    system("git commit -m 'upd:testing.'");
+    system("git commit -m upd:testing.");
     system("git push origin main");
     return 0;
 }
