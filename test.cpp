@@ -6,15 +6,14 @@ using namespace std;
 
 int main(){
     system("git add .");
-    time_t now = time(0);
-    char* dt = ctime(&now);
-    char s[] = "git commit -m ";
-    char d[1] = {'"'};
-    char k[] = "upd:";
-    char* cmd = strcat((strcat(s,d)),k);
-    cout<<cmd<<endl;
-    cout<<"okey"<<endl;
-    //system(cmd.c_str());
-    //system("git push origin main");
+    time_t sec;
+    sec = time (NULL);
+    string dt = asctime(localtime(&sec));
+    string s = "git commit -m ";
+    string d{'"'};
+    string k = "upd: ";
+    string command = s + d + k + dt + d;
+    system(command.c_str());
+    system("git push origin main");
     return 0;
 }
