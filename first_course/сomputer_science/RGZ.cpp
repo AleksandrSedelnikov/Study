@@ -47,7 +47,7 @@ void massiv2(int** mass, int n, int m)
 	{
 		cout << endl;
 		cout << "\t\t\t\t\t\t********************" << endl;
-		cout << "\t\t\t\t\t\t***Fail not found***" << endl;
+		cout << "\t\t\t\t\t\t***File not found***" << endl;
 		cout << "\t\t\t\t\t\t********************" << endl;
 		exit(404);
 	}
@@ -149,7 +149,7 @@ int main()
 		}
 	}
 	cout << endl;
-	cout << "\tГенерация массива по варианту "<< v << "..." << endl;
+	cout << "\tГенерация массива по варианту: "<< v << "..." << endl;
 	cout << endl;
 	massivout(mass,n,m);
 	glav(mass, n, m);
