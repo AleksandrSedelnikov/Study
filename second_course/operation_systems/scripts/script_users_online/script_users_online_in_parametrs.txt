@@ -1,0 +1,22 @@
+case $# in
+
+*)
+        count=0
+        while [ -n "$1" ]
+        do
+        echo "Проверяется пользователь: $1"
+        a=`last | grep -w 'logged in' | cut -d" " -f1 | grep -w "$1" | wc -l`
+        if [ $a = 1 ]
+                then
+                        count=`expr $count + 1`
+                        echo "Пользователь $1 в сети."
+                        echo " "
+                else
+                        echo "Пользователь $1 не сети."
+                        echo " "
+        fi
+        shift
+        done
+        echo "Количество пользователей по введённым именам в сети: $count"
+;;
+esac
