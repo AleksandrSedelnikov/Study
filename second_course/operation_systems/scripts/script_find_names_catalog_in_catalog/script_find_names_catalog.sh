@@ -33,22 +33,17 @@ if [ $k = 1 ]
                         fi
                     done
             done
-            if [ "$j" != "" ]
+            h=`find $j -type d 2>~/error | wc -l`
+            h1=`expr $h - 1`
+            if [ $h1 != 0 ]
                 then
-                    h=`find $j -type d 2>~/error | wc -l`
-                    h1=`expr $h - 1`
-                    if [ $h1 != 0 ]
-                        then
-                        l=`echo $j | grep -o "/" | wc -l`
-                        d=`expr $l + 2`
-                        k=`ls -d $j/*/ | cut -f"$d" -d'/'`
-                        echo -e "\033[32mВложенные директории:\033[0m"
-                        echo -e "\033[34m$k\033[0m" 
-                    else
-                        echo -e "\033[31mВ каталоге отсутствуют вложенные директории\033[0m"
-                    fi
+                    l=`echo $j | grep -o "/" | wc -l`
+                    d=`expr $l + 2`
+                    k=`ls -d $j/*/ | cut -f"$d" -d'/'`
+                    echo -e "\033[32mВложенные директории:\033[0m"
+                    echo -e "\033[34m$k\033[0m" 
                 else
-                echo "Был введён неверный путь до каталога."
+                    echo -e "\033[31mВ каталоге отсутствуют вложенные директории\033[0m"
             fi
     else
         echo -e "\033[41mДанного каталога не существует.\033[0m"
