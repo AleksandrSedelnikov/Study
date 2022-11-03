@@ -1,4 +1,3 @@
-
 o=`find ~ -name "dir" -type d 2>~/error`
 k=`find ~ -name "dir" -type d 2>~/error | wc -l`
 array=(`find ~ -name "dir" -type d 2>~/error`)
