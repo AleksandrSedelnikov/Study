@@ -18,7 +18,7 @@ if [ $k = 1 ]
     elif [ "$k" -gt "1" ]
         then
             echo "Данных каталогов $k, укажите точный путь до нужного Вам каталога:"
-            echo $o 
+            echo $array 
             par=0
             while [ $par == 0 ]
                 do
