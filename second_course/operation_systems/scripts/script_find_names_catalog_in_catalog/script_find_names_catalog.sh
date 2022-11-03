@@ -20,13 +20,18 @@ if [ $k = 1 ]
         then
             echo "Данных каталогов $k, укажите точный путь до нужного Вам каталога:"
             echo $o 
-            echo -n "Введите нужный путь: "; read o
-            for((i=0;i<$k;i++))
-            do
-                if [ "${array[i]}" == "$o" ]
-                    then
-                    j=${array[i]}
-                fi
+            par=0
+            while [ $par == 0 ]
+                do
+                    echo -n "Введите нужный путь: "; read o
+                    for((i=0;i<$k;i++))
+                    do
+                        if [ "${array[i]}" == "$o" ]
+                            then
+                            j=${array[i]}
+                            par=1
+                        fi
+                    done
             done
             if [ "$j" != "" ]
                 then
