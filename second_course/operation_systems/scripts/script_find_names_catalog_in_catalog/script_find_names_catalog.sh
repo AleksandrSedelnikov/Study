@@ -26,6 +26,7 @@ if [ $k = 1 ]
                     echo -n "Введите нужный путь: "; read o
                     for((i=0;i<$k;i++))
                     do
+                        echo "Проверяется путь: ${array[i]}"
                         if [ "${array[i]}" == "$o" ]
                             then
                             j=${array[i]}
