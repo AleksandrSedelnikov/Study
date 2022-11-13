@@ -1,5 +1,5 @@
-from asyncio import protocols
-from decimal import DivisionImpossible
+#from asyncio import protocols
+#from decimal import DivisionImpossible
 from fileinput import filename
 from multiprocessing.resource_sharer import stop
 from re import A
@@ -7,14 +7,14 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from turtle import back, bgcolor, width
-from setuptools import Command
+#from setuptools import Command
 from pathlib import Path
-import script
+#import script
 import tkinter as tk
 import threading
 import webbrowser
 import os
-import time
+#import time
 from tkinter.filedialog import askopenfilename
 from PIL import Image
 
