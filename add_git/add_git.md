@@ -7,6 +7,6 @@
   <h4 align="left"> • Введите команду g++ add_git.cpp -o add_git в терминал программы Visual Studio Code.</h4>
   <h4 align="left"> • Введите команду ./add_git в терминал программы Visual Studio Code.</h4>
   <h3 align="left">Пример работы скрипта:</h3>
-  <img align="center" src = 'https://github.com.png'><br>
+  <img align="center" src = 'https://github.com/AleksandrSedelnikov/Study/blob/main/add_git/work.png'><br>
   <h5 align="right"> author: Aleksandr Sedelnikov.</h5>
   <h5 align="right"> link: https://t.me/aleksandrsedelnikov</h5>
