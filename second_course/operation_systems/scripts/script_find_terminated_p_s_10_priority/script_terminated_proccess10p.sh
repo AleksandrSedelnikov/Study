@@ -1,10 +1,10 @@
-result=`ps -o pid,ni | grep -w "10" | awk '{print $1}'`
-count=`ps -o pid,ni | grep -w "10" | awk '{print $1}' | wc -l`
-if [ $count -eq 0 ]
-    then
+result=`ps -o pid,ni | grep -w "10" | awk '{print $1}'` # ID процессов с 10 приоритетом
+count=`ps -o pid,ni | grep -w "10" | awk '{print $1}' | wc -l` # количество процессов с 10 приоритетом
+if [ $count -eq 0 ] # проверка количества процессов
+    then # если их ноль
         echo "Процессов с приоритетом 10 нет."
-    else
-        for i in $result
+    else # если их больше нуля
+        for i in $result # цикл i в ID процессов
             do
                 kill -9 $i # послать сигнал немедленного прекращения работы процессу с PID i (прочитайте последнюю строчку скрипта)
                 echo "Процесс с ID $i убит."
