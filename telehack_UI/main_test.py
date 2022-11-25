@@ -7,7 +7,6 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from turtle import back, bgcolor, width
-#from setuptools import Command
 from pathlib import Path
 #import script
 import tkinter as tk
