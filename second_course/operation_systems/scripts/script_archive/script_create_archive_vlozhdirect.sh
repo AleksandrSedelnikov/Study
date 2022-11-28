@@ -1,7 +1,6 @@
 script() {
     for i in "$1"/*
     do
-	name=""
         if [ -d "$i" ]
         then
             name=`echo $i | sed "s/.*\///"`
