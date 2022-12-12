@@ -1,13 +1,11 @@
 from fileinput import filename
-import os
 from tkinter import *
 from tkinter import filedialog
 from pathlib import Path
-#import script1
-#import script
+import os
+import script
 import tkinter as tk
 import threading
-import webbrowser
 global result 
 result = [1,1,1,1,0]
 
@@ -26,7 +24,7 @@ global noprotocol
 global check_l
 global access_data
 global name
-background = PhotoImage(file = dir + r"\background.png")
+background = PhotoImage(file = dir + r"\img\background.png")
 background_label = Label(window, image=background)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 def click_btn():
@@ -35,7 +33,7 @@ def click_btn():
     if (filename != '' and Path(filename).suffix == '.csv'):
         btn.configure(bg = 'green', fg= 'white')
         btn["text"] = f"Файл загружен"
-        btn2["state"] = ACTIVE
+        btn3["state"] = ACTIVE
         return filename
     else:
         btn.configure(bg = 'red', fg= 'white')
@@ -47,54 +45,8 @@ def thread(fn):
         def execute(*args, **kwargs):
             threading.Thread(target=fn, args=args, kwargs=kwargs, daemon= True).start()
         return execute
-
-@thread   
-def click_btn1():
-    btn2["text"] = f"Проверка..."
-    btn["state"] = DISABLED
-    btn.configure(bg = 'white', fg= 'black')
-    btn2["state"] = DISABLED
-    access_data = script1.main_script(filename)
-    protocol = access_data[0][1]
-    noprotocol = access_data[0][0]
-    if (access_data):
-        btn2['text'] = f'Тест завершён'
-        second_window = tk.Toplevel(window)
-        second_window.protocol("WM_DELETE_WINDOW", lambda: window.destroy())
-        second_window.title("Результат теста")
-        second_window.geometry('960x480')
-        second_window.resizable(width=False, height=False)
-        background1_label = Label(second_window, image=background)
-        background1_label.place(x=0, y=0, relwidth=1, relheight=1)
-        def coordinates(x,y):
-            if (y == 3):
-                script1.save_data(filename)
-            if (y == 2):
-                webbrowser.open('http://' +access_data[1][x], new=0, autoraise=True)
-            if (y == 1):
-                screenshot = Image.open("img/" + access_data[1][x] + ".png")
-                screenshot.show("img/" + access_data[1][x] + ".png")
-            if (y == 0):
-                print(access_data[2][x])
-        #Удачные
-        tk1 = tk.Label(second_window,width= 10, height= 1, text="Успешно:", font='Times 11').grid(row = 0, column=0, padx = 0, pady = 5)
-        for i in range(protocol):
-            tk.Label(second_window,width= 10, height= 1, text=access_data[1][i], font='Times 11').grid(row = i+1, column=0, padx = 15, pady = 5)
-            for k in range(3):
-                tk.Button(second_window, width= 5, height= 1,text = k+1 ,command=lambda x=i,y=k: coordinates(x,y)).grid(row=i+1,column=k+1, padx = 3, pady = 5)
-        k = 0
-        #Неудачные
-        j = i+1
-        tk2 = tk.Label(second_window,width= 10, height= 1, text="Неуспешно:", font='Times 11').grid(row = i+2, column=0, padx = 15, pady = 5)
-        for i in range(j,j+noprotocol):
-            tk.Label(second_window,width= 10, height= 1, text=access_data[1][i], font='Times 11').grid(row = i+3, column=0, padx = 15, pady = 5)
-            for k in range(3):
-                tk.Button(second_window, width= 5, height= 1,text = k+1,command=lambda x=i,y=k: coordinates(x,y)).grid(row=i+3,column=k+1, padx = 0, pady = 5)
-        tk.Button(second_window, width = 25, height = 5, text= 'Сохранить результат', relief = 'flat',command=lambda x=i+1,y=k+1: coordinates(x,y)).grid(row =i+4,column= k+2, padx = 15, pady= 5)
-
 @thread
 def click_btn3():
-
     new_window = tk.Toplevel(window)
     new_window.iconbitmap(f'{dir}\img\setting.ico')
     btn["state"] = DISABLED
@@ -102,8 +54,8 @@ def click_btn3():
     btn3["state"] = DISABLED
     def active_window():
         btn["state"] = ACTIVE
-        btn2["state"] = DISABLED
         btn3["state"] = ACTIVE
+        btn.configure(bg = 'green', fg= 'white')
         new_window.destroy()
     new_window.protocol("WM_DELETE_WINDOW", lambda: active_window())
     new_window.title("Параметры тестирования")
@@ -216,7 +168,6 @@ def click_btn3():
             result[3] = pcrypto
         else:
             result[3] = pcrypto
-        print(result)
         active_window()
         btn2["state"] = ACTIVE
         new_window.destroy()
@@ -259,7 +210,7 @@ def click_btn5():
         btn2["state"] = DISABLED
         btn6["state"] = DISABLED
         count_res += 1
-        access = script.checker("151.101.193.69", result[0], result[1], result[2], result[3], result[4])
+        access = script.main_script(filename, result[0], result[1], result[2], result[3], result[4])
         if (access != ""):
             btn2["text"] = f"Результат"
             btn6["state"] = ACTIVE
@@ -276,6 +227,7 @@ def click_btn5():
             btn2["state"] = ACTIVE
             btn6["state"] = DISABLED
             count_res = 0
+            
 def click_btn6():
     global count_res
     count_res = 0
@@ -288,7 +240,7 @@ btn = Button(window,width= 25, height= 5, text="Выбор файла",command=c
 btn.grid(column=1, row=1, padx = 70, pady = 300) 
 btn2 = Button(window ,width= 25, height= 5, text="Начать тестирование", command=click_btn5,relief = 'flat', state = DISABLED)  
 btn2.grid(column=3, row=1, padx = 65, pady = 300)
-btn3 = Button(window ,width= 25, height= 5, text="Параметры тестирования", command=click_btn3, relief = 'flat')  
+btn3 = Button(window ,width= 25, height= 5, text="Параметры тестирования", command=click_btn3, relief = 'flat', state= DISABLED)  
 btn3.grid(column=2, row=1, padx = 70, pady = 300)
 btn6 = Button(window ,width= 10, height= 1, text="cбросить", command=click_btn6 ,relief = 'flat',state=DISABLED)  
 btn6.place(x=770,y=390)
