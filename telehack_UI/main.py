@@ -4,11 +4,10 @@ from tkinter import *
 from tkinter import filedialog
 from pathlib import Path
 #import script1
-import script
+#import script
 import tkinter as tk
 import threading
 import webbrowser
-import os
 global result 
 result = [1,1,1,1,0]
 
