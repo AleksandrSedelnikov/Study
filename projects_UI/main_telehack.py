@@ -1,21 +1,12 @@
-#from asyncio import protocols
-#from decimal import DivisionImpossible
 from fileinput import filename
-from multiprocessing.resource_sharer import stop
-from re import A
 import os
 from tkinter import *
 from tkinter import filedialog
-from turtle import back, bgcolor, width
 from pathlib import Path
 #import script
 import tkinter as tk
 import threading
 import webbrowser
-import os
-#import time
-from tkinter.filedialog import askopenfilename
-from PIL import Image
 
 window = Tk()
 window.title("Программа для проверки сайтов")
@@ -83,13 +74,9 @@ def click_btn1():
                 trace_window = Toplevel()
                 trace_window.title("Результат трассировки")
                 trace_window.geometry("640x600")
-                #scroll_y = tk.Scrollbar(trace_window, orient="vertical", command=label.yview)
-                #scroll_y.pack(side=RIGHT, expand=True, fill="y")
                 trace_window.protocol("WM_DELETE_WINDOW", lambda: trace_window.destroy())
                 label = tk.Label(trace_window, text = access_data[2][x])
                 label.pack(anchor=CENTER, expand=1)
-                #label.configure(yscrollcommand=scroll_y.set)
-                #print(access_data[2][x])
         #Удачные
         tk1 = tk.Label(second_window,width= 10, height= 1, text="Успешно:", font='Times 11').grid(row = 0, column=0, padx = 0, pady = 5)
         for i in range(protocol):
