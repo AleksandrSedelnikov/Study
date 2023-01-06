@@ -6,7 +6,6 @@ default_maxres=2
 checkone=0
 
 # check input option
-
 echo -e "\033[01;97mChecking input options...\033[00;0m"
 sleep 1
 for i in "$@"
@@ -85,7 +84,6 @@ echo -e "\033[01;97mOutputting...\033[00;0m"
 # Decor
 
 # parse json output
-
 book=`curl -G "https://www.googleapis.com/books/v1/volumes?q=$QUERY&maxResults=$MAXRES&orderBy=$SORT&langRestrict=$LANGUAGE" 2>~/error`
 for ((i=0;i<$MAXRES;i++))
     do
