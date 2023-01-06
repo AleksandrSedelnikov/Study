@@ -1,5 +1,4 @@
 # default option
-
 default_lang="ru"
 default_sort="rel"
 default_maxres=2
