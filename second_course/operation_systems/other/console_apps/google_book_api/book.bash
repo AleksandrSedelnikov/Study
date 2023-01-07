@@ -1,3 +1,11 @@
+# check availability
+result=`find / -name "jq" 2>~/error`
+if [ "$result" == "" ]
+    then
+        echo -e "\033[01;91mModule jq not found in this system\033[00;0m"
+        exit
+fi
+
 # default option
 default_lang="ru"
 default_sort="rel"
