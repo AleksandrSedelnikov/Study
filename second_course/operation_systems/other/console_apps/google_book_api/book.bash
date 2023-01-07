@@ -134,8 +134,8 @@ for ((i=0;i<$MAXRES;i++))
         if [ "$saleability" == "NOT_FOR_SALE" ] || [ "$price_amount" == "null" ]
             then
                 echo "Стоимость: not for sale"
-            else
-                echo "Стоимость: $price_amount $price_code"
+        else
+            echo "Стоимость: $price_amount $price_code"
         fi
         echo "Формат(pdf,epub): $access"
         echo "Ссылка на просмотр фрагмента: $link"
