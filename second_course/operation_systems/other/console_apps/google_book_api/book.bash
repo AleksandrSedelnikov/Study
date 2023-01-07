@@ -111,8 +111,8 @@ for ((i=0;i<$MAXRES;i++))
                 if [ "$epub" == "true" ]
                     then
                         access="pdf,epub"
-                    else
-                        access="pdf"
+                else
+                    access="pdf"
                 fi
         else
             if [ "epub" == "true" ]
