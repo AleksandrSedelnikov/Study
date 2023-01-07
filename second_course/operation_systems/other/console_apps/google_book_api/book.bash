@@ -23,7 +23,7 @@ for i in "$@"
             shift
         ;;
         -l=* | --lang=*)
-            LANGUAGE="${i#*=}"
+            LANGU="${i#*=}"
             shift
         ;;
         -s=* | --sort=*)
@@ -43,10 +43,10 @@ if [ "$QUERY" == "" ] || [ `echo $QUERY | wc -w` -ne 1 ]
         echo -e "\033[01;91mWrong option query!\033[00;0m"
         checkone=1
 fi
-if [ "$LANGUAGE" == "" ] || [ `echo $LANGUAGE | wc -w` -ne 1 ]
+if [ "$LANGU" == "" ] || [ `echo $LANGU | wc -w` -ne 1 ]
     then
         echo -e "\033[01;93mWrong lang, the standard value is selected!\033[00;0m"
-        LANGUAGE=$default_lang
+        LANGU=$default_lang
 fi
 if [ "$SORT" == "" ] || [ `echo $SORT | wc -w` -ne 1 ]  
     then
@@ -81,7 +81,7 @@ if [ "$checkone" -eq 1 ]
         exit
 fi
 echo -e "\033[01;92mInput verification completed\033[00;0m"
-echo -e "\033[01;97mReceived options:\033[00;0m\n\033[01;93mQuery:\033[00;0m \033[01;97m$QUERY\033[00;0m\n\033[01;93mLanguage:\033[00;0m \033[01;97m$LANGUAGE\033[00;0m\n\033[01;93mSort:\033[00;0m \033[01;97m$SORT\033[00;0m\n\033[01;93mMaxResult:\033[00;0m \033[01;97m$MAXRES\033[00;0m" 
+echo -e "\033[01;97mReceived options:\033[00;0m\n\033[01;93mQuery:\033[00;0m \033[01;97m$QUERY\033[00;0m\n\033[01;93mLanguage:\033[00;0m \033[01;97m$LANGU\033[00;0m\n\033[01;93mSort:\033[00;0m \033[01;97m$SORT\033[00;0m\n\033[01;93mMaxResult:\033[00;0m \033[01;97m$MAXRES\033[00;0m" 
 
 # Decor
 sleep 3
@@ -91,7 +91,7 @@ echo -e "\033[01;97mOutputting...\033[00;0m"
 # Decor
 
 # parse json output
-book=`curl -G "https://www.googleapis.com/books/v1/volumes?q=$QUERY&maxResults=$MAXRES&orderBy=$SORT&langRestrict=$LANGUAGE" 2>~/error`
+book=`curl -G "https://www.googleapis.com/books/v1/volumes?q=$QUERY&maxResults=$MAXRES&orderBy=$SORT&langRestrict=$LANGU" 2>~/error`
 for ((i=0;i<$MAXRES;i++))
     do
         auth=`echo $book | jq -r ".items[$i].volumeInfo.authors" | cut -d"[" -f2 | cut -d"]" -f1`
