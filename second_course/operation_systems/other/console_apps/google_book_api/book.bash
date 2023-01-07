@@ -103,6 +103,7 @@ for ((i=0;i<$MAXRES;i++))
         pdf=`echo $book | jq -r ".items[$i].accessInfo.pdf.isAvailable" | cut -d"[" -f2 | cut -d"]" -f1`
         epub=`echo $book | jq -r ".items[$i].accessInfo.epub.isAvailable" | cut -d"[" -f2 | cut -d"]" -f1`
         link=`echo $book | jq -r ".items[$i].accessInfo.webReaderLink" | cut -d"[" -f2 | cut -d"]" -f1`
+        saleability=`echo $book | jq -r ".items[$i].saleInfo.saleability" | cut -d"[" -f2 | cut -d"]" -f1`
         price_amount=`echo $book | jq -r ".items[$i].saleInfo.listPrice.amount" | cut -d"[" -f2 | cut -d"]" -f1`
         price_code=`echo $book | jq -r ".items[$i].saleInfo.listPrice.currencyCode" | cut -d"[" -f2 | cut -d"]" -f1`
         #lang=`echo $book | jq -r ".items[$i].volumeInfo.language" | cut -d"[" -f2 | cut -d"]" -f1`
@@ -130,7 +131,12 @@ for ((i=0;i<$MAXRES;i++))
         echo "Издательство: $publisher"
         echo "Дата публикации: $publishedDate"
         echo "Количество страниц: $pageCount"
-        echo "Стоимость: $price_amount $price_code"
+        if [ "$saleability" == "NOT_FOR_SALE" ] || [ "$price_amount" == "null" ]
+            then
+                echo "Стоимость: not for sale"
+            else
+                echo "Стоимость: $price_amount $price_code"
+        fi
         echo "Формат(pdf,epub): $access"
         echo "Ссылка на просмотр фрагмента: $link"
         #echo "Debag language: $lang"
