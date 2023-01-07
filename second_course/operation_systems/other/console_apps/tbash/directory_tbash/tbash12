@@ -1,0 +1,281 @@
+# функция базы данных пользователей (логин:пароль)
+database() {
+user="Sasha:qwerty123 Masha:qwerty Misha:test Teacher:12345"
+result=0
+for i in $user
+do
+    razdel=":"
+    parametr=$1$razdel$2
+    if [ "$i" == "$parametr" 2>~/error ]
+    then
+        result=1
+        echo $result
+    fi
+done
+if [ $result -eq 0 2>~/error ]
+then
+    echo 0
+fi
+}
+
+# создание домашнего каталога для tbash
+poisk=`find ~ -name "test_bash" -type d 2>~/error`
+if [ "$poisk" == "" ]
+then
+    mkdir ~/test_bash
+    cd ~/test_bash
+    touch first_cfg.tbash
+    echo "Файл первичной конфигурации tbash." > first_cfg.tbash
+    echo "SHA256:25339d4692bb119e6ec69ddf0bde06b2e8d8819cb4a61d3239f02ae57dc8306d" >> first_cfg.tbash
+    echo "Base64:0KLQtdGB0YI=" >> first_cfg.tbash
+    position=`echo $(($RANDOM %10000 + 1))`
+    echo "Code position: $position" >> first_cfg.tbash
+    touch log.tbash
+    echo "Файл логирования входов за сеанс работы tbash." > log.tbash
+else
+    cd ~/test_bash
+    echo "Файл логирования входа за сеанс работы tbash." > log.tbash
+fi
+
+# авторизация и оболочка tbash
+logout=1
+countlog=0
+countatemp=0
+clear
+while [ $logout -eq 1 ]
+do
+    trap 'echo -e "" "\n\033[01;91mПолучен сигнал SIGINT (нажатие Ctrl+C), завершение работы tbash...\033[00;0m"; rm -R ~/test_bash; sleep 3; clear; echo -e "\033[01;97mКонсоль очищена.\033[00;0m"; exit 1' SIGINT # если поймано нажатие ctrl+c удаление домашнего каталога tbash
+    if [ $countatemp -gt 3 ]
+    then
+        echo ""
+        echo -e " \n\033[01;91mДоступ закрыт.\033[00;0m\nПричина: количество попыток авторизации превышено."
+        logout=0
+        break
+    fi
+    if [ $countlog -eq 0 ]
+    then
+        echo -e "\033[01;35mПриветствую в тестовом bash, для авторизации Вам необходимо ввести логин и пароль.\033[00;0m\nЧтобы выйти из авторизации введите logout.\n" ""
+    fi
+    countlog=`expr $countlog + 1`
+    echo -n "Введите логин: "; read login
+    if [ $login == "logout" 2>~/error ]
+    then
+        logout=0
+        break
+    fi
+    echo -n "Введите пароль: "; read password
+    if [ $password == "logout" 2>~/error ]
+    then
+        logout=0
+        break
+    fi
+    result=`database $login $password`
+    if [ $result -eq 1 ]
+    then
+        logout1=1
+        count=0
+        while [ $logout1 -eq 1 ]
+        do
+            if [ $count -eq 0 ]
+            then
+                time=`date`
+                echo "Login: $login | Timestamp: $time" >> log.tbash  # запись в логжурнал информации о входе
+                echo -e "" "\nВы \033[01;92mуспешно\033[00;0m вошли в tbash под логином \033[01;97m$login\033[00;0m.\nСписок всех доступных команд можно узнать с помощью \033[01;93m!help\033[00;0m\n" ""
+                echo -n "Введите команду: "; read command # ввод команды при первом входе
+            else
+                echo -n "Введите команду: "; read command # ввод команды при не первом разе за вход
+            fi
+            count=`expr $count + 1`
+
+            # основной функционал tbash
+            if [ $command == "!help" 2>~/error ] # команда !help - информация о командах tbash
+            then
+                echo -e "\033[01;97mВ данный момент доступны следующие команды:\033[00;0m\n1)\033[01;93mlogout\033[00;0m - \033[01;97mвыйти из тестового bash в меню авторизации\033[00;0m\n2)\033[01;93mprint\033[00;0m - \033[01;97mвывести на экран написанное сообщение\033[00;0m\n3)\033[01;93m!date\033[00;0m - \033[01;97mузнать дату\033[00;0m\n4)\033[01;93m!ver\033[00;0m - \033[01;97mверсия tbash\033[00;0m\n5)\033[01;93m!curdir\033[00;0m - \033[01;97mузнать текущую директорию\033[00;0m\n6)\033[01;93m!create [filename] без расширения\033[00;0m - \033[01;97mсоздать файл с выбранным названием\033[00;0m\n7)\033[01;93m!delete [filename] без расширения\033[00;0m - \033[01;97mудалить файл с выбранным названием\033[00;0m\n8)\033[01;93m!dir\033[00;0m - \033[01;97mвывести содержимое текущей директории\033[00;0m\n9)\033[01;93m!clear\033[00;0m - \033[01;97mочистить консоль tbash\033[00;0m\n10)\033[01;93m!calc\033[00;0m - \033[01;97mвойти в калькулятор\033[00;0m\n11)\033[01;93m!news\033[00;0m - \033[01;97mновости tbash\033[00;0m"
+            fi
+
+            if [ $command == "!clear" 2>~/error ] # команда !clear - очистка консоли tbash
+            then
+                clear
+                echo -e "\033[01;97mКонсоль tbash была очищена.\033[00;0m"
+            fi
+
+            if [ "$command" == "!news" 2>~/error ] # команда !news - новости разработки tbash
+            then
+                echo -e "\033[01;97mНовости разработки tbash от\033[00;0m \033[01;93m09.12.2022\033[00;0m.\n\033[01;97m[Нововведения]\033[00;0m\n\033[01;93m[1]\033[00;0m \033[01;97mИзменены практически все цветовые гаммы tbash (идём к единому дизайну)\033[00;0m\n\033[01;93m[2]\033[00;0m \033[01;97mКоманда\033[00;0m \033[01;93m!bashver\033[00;0m \033[01;97mтеперь\033[00;0m \033[01;93m!ver\033[00;0m\n\033[01;93m[3]\033[00;0m \033[01;97mДобавлена новая команда\033[00;0m \033[01;93m!calc\033[00;0m\033[01;97m, а с ней функционал калькулятора tbash\n\033[01;97m[В разработке]\033[00;0m\n\033[01;93m[1]\033[00;0m \033[01;97mИерархия прав в tbash\033[00;0m\n\033[01;93m[2]\033[00;0m \033[01;97mФормирование некоторых команд в формате отдельных исполняемых файлов (скриптов)\033[00;0m"
+            fi
+
+            if [ $command == "!date" 2>~/error ] # команда !date - текущая дата и время
+            then
+                date=`date`
+                echo -e "\033[01;94mТекущая отметка времени:\033[00;0m $date"
+            fi
+
+            if [ "$command" == "!dir" 2>~/error ] # команда !dir - содержание домашней директории tbash
+            then
+                ls=`ls`
+                echo -e "\033[01;94mСодержимое домашней директории:\033[00;0m\n$ls"
+            fi
+
+            if [ "`echo $command | cut -d" " -f1`" == "!create" 2>~/error ] # команда !create - создание файла tbash
+            then
+                filename=`echo $command | cut -d" " -f2`
+		        if [ `echo $command | wc -w` -eq 1 ] || [ `echo $command | wc -w` -gt 2 ]
+                then
+                    echo -e "\033[01;31mОшибка синтаксиса команды.\033[00;0m"
+                else
+                    result=`find . -name "$filename.tbash" -type f`
+                    if [ "$result" != "" ]
+                    then
+                        echo -e "\033[01;91mВы не можете создать файл с таким именем, т.к. он уже существует.\033[00;0m"
+                    else
+                        touch $filename.tbash
+                        echo -e "Файл $filename.tbash \033[01;92mсоздан\033[00;0m."
+                    fi
+		        fi
+            fi
+
+            if [ "$command" == "!calc" 2>~/error ]
+            then
+                clear
+                logoutcalc=1
+                countcalc=0
+                while [ $logoutcalc -eq 1 ]
+                do
+                    if [ $countcalc -eq 0 ]
+                    then
+                        echo -e "Вы попали в меню \033[01;93mкалькулятора\033[00;0m tbash.\nЧтобы узнать о возможностях калькулятора введите команду - \033[01;93mcalchelp\033[00;0m"
+                        echo -n "Выберите действие: "; read action
+                    else
+                        echo -n "Выберите действие: "; read action
+                    fi
+                    if [ "$action" == "calchelp" 2>~/error ] # команда calchelp - информация о возможностях калькулятора
+                    then
+                        echo -e "Возможности \033[01;93mкалькулятора\033[00;0m tbash:\n\033[01;93m[1]\033[00;0m \033[01;97mВычитание двух чисел\033[00;0m\n\033[01;93m[2]\033[00;0m \033[01;97mСложение двух чисел\033[00;0m\n\033[01;93m[3]\033[00;0m \033[01;97mВозведение в степень числа\033[00;0m\n\033[01;93m[4]\033[00;0m \033[01;97mКвадратный корень из числа\033[00;0m\n\033[01;93m[5]\033[00;0m \033[01;97mВыйти\033[00;0m\n\033[01;97mP.s. Вводить можно как цифровой номер, так и текстовое название метода.\033[00;0m"
+                    fi
+                    if [ "$action" == "Вычитание двух чисел" 2>~/error ] || [ "$action" == "1" 2>~/error ] # команда Вычитание двух чисел/1
+                    then
+                        echo -e "Метод \033[01;93mВычитание двух чисел\033[00;0m"
+                        vich=0
+                        for ((i=1;i<=2;i++))
+                        do
+                            echo -n "Введите $i число: "; read value
+                            if [ $i -eq 1 ]
+                            then
+                                vich=`expr $vich + $value`
+                            else
+                                vich=`expr $vich - $value`
+                            fi
+                        done
+                            echo -e  "\033[01;92mОтвет:\033[00;0m $vich"
+                    fi
+                    if [ "$action" == "Сложение двух чисел" 2>~/error ] || [ "$action" == "2" 2>~/error ] # команда Сложение двух чисел/2
+                    then
+                        echo -e "Метод \033[01;93mСложение двух чисел\033[00;0m"
+                        sum=0
+                        for ((i=1;i<=2;i++))
+                        do
+                            echo -n "Введите $i число: "; read value
+                            sum=`expr $sum + $value`
+                        done
+                            echo -e "\033[01;92mОтвет:\033[00;0m $sum"
+                    fi
+                    if [ "$action" == "Возведение в степень числа" 2>~/error ] || [ "$action" == "3" 2>~/error ] # команда Возведение в степень числа/3
+                    then
+                        echo -e "Метод \033[01;93mВозведение в степень числа\033[00;0m"
+                        pow=0
+                        for ((i=1;i<=2;i++))
+                        do
+                            if [ $i -eq 1 ]
+                            then
+                                echo -n "Введите число: "; read value
+                            else
+                                echo -n "Введите степень: "; read step
+                            fi
+                        done
+                        let pow=$value**$step
+                        echo -e  "\033[01;92mОтвет:\033[00;0m $pow"
+                    fi
+                    if [ "$action" == "Квадратный корень числа" 2>~/error ] || [ "$action" == "4" 2>~/error ] # команда Квадратный корень числа/4
+                    then
+                        echo -e "Метод \033[01;93mКвадратный корень числа\033[00;0m"
+                        sqrt=0
+                        echo -n "Введите число: "; read value
+                        sqrt=$(echo "scale=2;sqrt($value)" | bc)
+                        echo -e "\033[01;92mОтвет:\033[00;0m $sqrt"
+                    fi
+                    if [ "$action" == "Выйти" 2>~/error ] || [ "$action" == "5" 2>~/error ] # команда Выйти/5 - выход из калькулятора
+                    then
+                        clear
+                        echo -e "Выход из \033[01;93mкалькулятора\033[00;0m tbash..."
+                        sleep 2
+                        echo -e "\033[01;97mВы вернулись в основную оболочку tbash.\033[00;0m"
+                        logoutcalc=0
+                    fi
+                    countcalc=`expr $countcalc + 1`
+                done
+            fi
+
+            if [ "`echo $command | cut -d " " -f1`" == "!delete" 2>~/error ] # команда !delete - удаление файла tbash
+            then
+                filename=`echo $command | cut -d" " -f2`
+		        if [ `echo $command | wc -w` -eq 1 ] || [ `echo $command | wc -w` -gt 2 ]
+                then
+                    echo -e "\033[01;31mОшибка синтаксиса команды.\033[00;0m"
+                else
+                    if [ "$filename" == "first_cfg" ] || [ "$filename" == "first_cfg.tbash" ] || [ "$filename" == "log" ] || [ "$filename" == "log.tbash" ]
+                    then
+                        echo -e "\033[01;91mВы не можете удалить стандартный файл конфигурации/лога из под tbash.\033[00;0m"
+                    else
+                        result=`find . -name "$filename.tbash" -type f`
+                        if [ "$result" == "" ]
+                        then
+                            echo -e "\033[01;91mДанного файла не существует.\033[00;0m"
+                        else
+                            rm $filename.tbash
+                            echo -e "Файл $filename.tbash \033[01;91mудалён\033[00;0m."
+                        fi
+                    fi
+		        fi
+            fi
+
+            if [ $command == "!curdir" 2>~/error ] # дебаг-команда !curdir - текущая директория выполнения кода
+            then
+                dir=`pwd`
+                echo -e "\033[01;34mДебаг команда.\033[00;0m\nТекущая директория: $dir"
+            fi
+            if [ $command == "!ver" 2>~/error ] # команда !bashver - версия tbash
+            then
+                echo -e "\033[01;97mВерсия tbash\033[00;0m - \033[01;93m0.1.5\033[00;0m \033[01;37m(от 09.12.2022)\033[00;0m\n\033[01;97mDebug\033[00;0m - \033[01;90m⠧⠑⠗ ⠼⠚⠲⠼⠁⠲⠼⠑ ⠋⠊⠕⠒⠎⠲⠁⠲⠎\033[00;0m"
+            fi
+            if [ "`echo $command | cut -d" " -f1`" == "print" 2>~/error ] # комадна print - вывод на экран сообщения
+            then
+                if [ "`echo $command | cut -d" " -f2` "== " " 2>~/error ] || [ `echo $command | wc -w` -eq 1 ]
+                then
+                    echo -e "\033[01;91mОшибка, информацию про print можно узнать с помощью команды: print --help\033[00;0m"
+                else
+                    text=`echo $command | cut -d" " -f2-`
+                    if [ $text == "--help" 2>~/error ]
+                    then
+                        echo -e "Синтаксис команды print:\nprint \033[01;93m[text/parametr]\033[00;0m\nprint \033[01;93mtext\033[00;0m - вывод на экран сообщения text\nparametr \033[01;93m*\033[00;0m - вывести содержание директории из которой запущен тестовый bash\nparametr \033[01;93m--help\033[00;0m - вывести информацию о команде print"
+                    else
+                        echo $text
+                    fi
+                fi
+            fi
+
+            if [ $command == "logout" 2>~/error ] # комадна logout - выход из tbash в авторизацию
+            then
+                echo -e "\033[01;35mЛогаут из tbash...\033[00;0m"
+                sleep 3
+                logout1=0
+                countatemp=0
+                clear
+                echo -e "\033[01;35mВы вернулись в авторизацию.\033[00;0m\nЧтобы выйти из авторизации введите: logout.\n" "\n" ""
+            fi
+        done
+    else
+        countatemp=`expr $countatemp + 1`
+        echo -e "\033[01;31mНеверно введён логин или пароль.\033[00;0m"
+    fi
+done
+rm -R ~/test_bash # после завершения работы (не ctrl+c) удаление домашнего каталога tbash

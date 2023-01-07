@@ -1,0 +1,6 @@
+{
+    "name": "testing_bash{build}",
+    "short_name": "tbash{build}",
+    "version": "0.1.6",
+    "home_directory": "~/test_bash"
+}
