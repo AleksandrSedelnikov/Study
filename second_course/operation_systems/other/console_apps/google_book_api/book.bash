@@ -34,11 +34,11 @@ for i in "$@"
             MAXRES="${i#*=}"
         ;;
         -h | --help)
-            echo -e "Main option:\n-m=[number]/--maxres=[number] - number of results, range [1-40]\n-l=[language]/--lang=[language] - language of the books(there is no verification of the correctness of the language)\n-s=[sort]/--sort=[sort] - type of sorting (rel - relevation, date - date of publication)\nIMPORTANT option -q="text"/--query=[text] or [word1word2...wordn] - search by phrase\n\nColor Indication:\n\033[01;91mRed\033[00;0m - Error\n\033[01;93mYellow\033[00;0m - Warning\n\033[01;92mGreen\033[00;0m - Good"
+            echo -e "Main option:\n-m=[number]/--maxres=[number] - number of results, range [1-40]\n-l=[language]/--lang=[language] - language of the books(there is no verification of the correctness of the language)\n-s=[sort]/--sort=[sort] - type of sorting (rel - relevation, date - date of publication)\nIMPORTANT option -q="text"/--query=[word] or [word1 word2 word3 ... wordn] - search by phrase\n\nColor Indication:\n\033[01;91mRed\033[00;0m - Error\n\033[01;93mYellow\033[00;0m - Warning\n\033[01;92mGreen\033[00;0m - Good"
             exit
         esac
     done
-if [ "$QUERY" == "" ] || [ `echo $QUERY | wc -w` -ne 1 ]
+if [ "$QUERY" == "" ]
     then
         echo -e "\033[01;91mWrong option query!\033[00;0m"
         checkone=1
@@ -80,6 +80,7 @@ if [ "$checkone" -eq 1 ]
         echo -e "\033[01;91mInput validation is broken\033[00;0m\n\033[01;97mCheck option -h/--help\033[00;0m"
         exit
 fi
+QUERY=${QUERY/ /+} # replace " " on +
 echo -e "\033[01;92mInput verification completed\033[00;0m"
 echo -e "\033[01;97mReceived options:\033[00;0m\n\033[01;93mQuery:\033[00;0m \033[01;97m$QUERY\033[00;0m\n\033[01;93mLanguage:\033[00;0m \033[01;97m$LANGU\033[00;0m\n\033[01;93mSort:\033[00;0m \033[01;97m$SORT\033[00;0m\n\033[01;93mMaxResult:\033[00;0m \033[01;97m$MAXRES\033[00;0m" 
 
