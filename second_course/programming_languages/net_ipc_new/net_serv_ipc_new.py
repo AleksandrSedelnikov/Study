@@ -9,7 +9,7 @@ import socket
 import datetime
 
 # функция получения/разрыва соединения с клиентской частью
-def connection_handler(server):
+def connection(server):
     global connection_count
     global message_count
     connection_count = 1
@@ -18,7 +18,7 @@ def connection_handler(server):
         print('= = =\n[Server-Info]: Получено соединение [ID {}]\n= = ='.format(connection_count))
         start_time = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
         message_count = 0
-        result = message_handler(conn)
+        result = message_response(conn)
         if (result == 0):
             return 0
         elif (result == 1):
@@ -32,7 +32,7 @@ def connection_handler(server):
         connection_count += 1
 
 # функция обработки и отправки сообщения
-def message_handler(connect):
+def message_response(connect):
     global connection_count
     global message_count
     while True:
@@ -74,7 +74,7 @@ def main():
         server.listen(5)
         print("[Server-Info]: Сервер настроен на прослушивание...\n= = =")    
         try:
-            if (connection_handler(server) == 0):
+            if (connection(server) == 0):
                 server.close()
                 os.remove(SOCKET_FILE)
                 print('= = =\n[Server-Info]: Сервер выключен...\n= = =')
