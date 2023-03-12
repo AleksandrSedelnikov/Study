@@ -3,6 +3,7 @@ import datetime
 global connection_count
 global message_count
 
+# функция получения/разрыва соединения с клиентской частью
 def connection(server):
     global connection_count
     global message_count
@@ -26,7 +27,7 @@ def connection(server):
 
         connection_count += 1
 
-
+# функция обработки и отправки сообщения
 def message_response(connect):
     global connection_count
     global message_count
@@ -59,7 +60,7 @@ def message_response(connect):
         print('= = =\nОтправлено: {}\nВремя ответа: {}\n= = ='.format(msg, date_send)) 
 
 
-
+# основная функция серверной части
 def main():
     TCP_IP = '127.0.0.1'
     TCP_PORT = 5022
@@ -77,7 +78,6 @@ def main():
             server.close()
             print("= = =\n[Server-Info]: Сервер выключен...\n= = =")
     return 0
-
 
 if __name__ == "__main__":
     main()
