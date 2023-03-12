@@ -60,7 +60,7 @@ def message_response(connect):
             print('= = =\n[Server-Info]: Соединение с клиентской частью было разорвано...\n= = =')
             continue
         date_send = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-        print('= = =Отправлено: {}\nВремя ответа: {}\n= = ='.format(msg, date_send)) 
+        print('= = =\nОтправлено: {}\nВремя ответа: {}\n= = ='.format(msg, date_send)) 
 
 # основная функция серверной части
 def main():
