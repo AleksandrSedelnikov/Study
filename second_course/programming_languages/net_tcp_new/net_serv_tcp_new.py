@@ -63,7 +63,7 @@ def message_response(connect):
 # основная функция серверной части
 def main():
     TCP_IP = '127.0.0.1'
-    TCP_PORT = 5022
+    TCP_PORT = 5022 # поменять последние две цифры на номер своего аккаунта (прим: AP103_22 => 22)
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         print("= = =\n[Server-Info]: Открываем INET сокет...")
         server.bind((TCP_IP, TCP_PORT))

@@ -4,7 +4,7 @@ import datetime
 # основная функция клиентской части
 def main():
     TCP_IP = '127.0.0.1'
-    TCP_PORT = 5022
+    TCP_PORT = 5022 # поменять последние две цифры на номер своего аккаунта (прим: AP103_22 => 22)
     BUFFER_SIZE = 1024
     print("[Client-Info]: Подключение...")
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
