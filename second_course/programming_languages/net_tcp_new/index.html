@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="img/home_ico.png">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" type="text/css" href="css/navbar.css">
+	<link rel="stylesheet" type="text/css" href="css/main_sheet.css">
+	<title>Главная</title>
+</head>
+
+<body>
+	<div class="main-menu">
+
+		<div>
+			<a href="index.html">
+				<img src="img/logo.svg">
+			</a>
+		</div>
+
+		<div class="menu-header">
+			<a href="javascript:void(0);" class="selected">Главная</a>
+			<a href="html/projects.html">Проекты</a>
+			<a href="html/price.html">Донат</a>
+			<a href="html/true_links.html">Полезные&nbsp;ссылки</a>
+            <a href="html/about.html">Oбо&nbsp;мне</a>
+		</div>
+
+	</div>
+
+	<div class="title-container">
+		<div class="title" style="opacity: 1;">
+			<span>Добро&nbspпожаловать <br>в&nbspубежище&nbspАлександра</span>
+		</div>
+		<div class="sub-title" style="opacity: 1;">
+			<span>Основная&nbsp;информация&nbsp;представлена&nbsp;во&nbsp;вкладке&nbsp;<span></span>проекты</span> <br>
+			<a class="link-arrow" href="html/projects.html">посмотреть проекты </a>
+		</div>
+    </div>
+    <div class="images_title" style="position: absolute;filter: blur(0.5px);">
+		<img src="img/backgroundd.jpg">
+	</div>
+    <div class="news-container">
+        <div class="news-title" style="opacity: 1;">
+            <span>Новости</span>
+        </div>
+        <div class="news-sub-title" style="opacity: 1;">
+			<span>21.03.2023:&nbsp;Создание&nbsp;сайта.</span>
+            <span>Coming&nbsp;Soon...</span>
+        </div>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('a').on('click', function(e){
+				if(this.hash !== '') {
+					e.preventDefault();
+					const hash = this.hash;
+					$('html, body').animate(
+					{
+						scrollTop: $(hash).offset().top
+					},
+					1000
+					);
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

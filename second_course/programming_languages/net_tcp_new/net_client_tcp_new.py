@@ -5,7 +5,7 @@ import datetime
 def main():
     TCP_IP = '127.0.0.1'
     TCP_PORT = 5022
-    BUFFER_SIZE = 1024
+    BUFFER_SIZE = 4096
     print("[Client-Info]: Подключение...")
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
@@ -18,11 +18,10 @@ def main():
     while True:
         try:
             var = input('Выберите тип запроса (GET/POST): ')
-            if (var.upper() != 'GET' and var.upper() != 'POST'):
+            if (var.upper() != 'GET' and var.upper() != 'POST' and var.upper() != 'BREAK'):
                 print('Вы ввели неверное название типа запроса.')
                 continue 
             if (var.upper() == 'GET'):
-                var = 'GET0'
                 x = input("Начните ввод GET-запроса > ")
                 if (x.upper() == 'BREAK'):
                     print('\n[Client-Info]: Выключение клиентской части...')
@@ -30,7 +29,7 @@ def main():
                 if (len(x) == 0):
                     print('Вы не указали сообщение, сообщение ретранслируется обратно...')
                     continue
-                message = var + " " + x
+                message = var.upper() + " /myserver/?{} HTTP/1.1 host:localhost:3306".format(x)
                 client.send(message.encode('utf-8'))
                 response = client.recv(BUFFER_SIZE).decode('utf-8')
                 if not response:
@@ -47,7 +46,7 @@ def main():
                 if (len(x) == 0):
                     print('Вы не указали сообщение, сообщение ретранслируется обратно...')
                     continue
-                message = var.upper() + " " + x
+                message = var.upper() + "  /myserver/ HTTP/1.1" + x
                 client.send(message.encode('utf-8'))
                 date_send = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 print('= = =\nОтправлено: {}\nВремя отправления: {}\n= = ='.format(x, date_send))
@@ -57,6 +56,9 @@ def main():
                     exit(1)
                 date_input = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 print('= = =\nПолучено: {}\nВремя получения: {}\n= = ='.format(response, date_input))
+            elif (var.upper() == 'BREAK'):
+                print('\n[Client-Info]: Выключение клиентской части...')
+                exit(1)
         except KeyboardInterrupt:
             print('\n[Client-Info]: Выключение клиентской части...')
             client.close()

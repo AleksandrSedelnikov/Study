@@ -31,7 +31,7 @@ def connection(server):
 def message_response(connect):
     global connection_count
     global message_count
-    BUFFER_SIZE = 20
+    BUFFER_SIZE = 100
     while True:
         data = connect.recv(BUFFER_SIZE).decode('utf-8')
         if not data:
@@ -55,13 +55,19 @@ def message_response(connect):
                     continue
                 date_send = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 print('= = =\nОтправлено: {}\nВремя ответа: {}\n= = ='.format(msg, date_send)) 
-        elif (data[:4] == "GET0"):
-            if (str(data[5:]).lower() == "debug"):
-                msg = '\n[Debug-Info]\nНомер соединения: {}\nКоличество сообщений за соединение: {}'.format(connection_count, message_count)
-                connect.send(msg.encode())
+        elif (data[:4] == "GET "):
+            start = data.find("?")
+            end = data.find('HTTP/1.1')
+            data = data[start + 1:end - 1]
+            if (str(data).lower() == "debug"):
+                with open('index.html') as file:
+                    html = file.read()
+                connect.send(str(html).encode())
+                #msg = '\n[Debug-Info]\nНомер соединения: {}\nКоличество сообщений за соединение: {}'.format(connection_count, message_count)
+                #connect.send(msg.encode())
                 print('= = =\n[Server-Info]: ВНИМАНИЕ! Была отправлена техническая информация\n= = =')
                 continue
-            elif (str(data[5:]).lower() == "datetime"):
+            elif (str(data).lower() == "datetime"):
                 date = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
                 msg = '\n[Time-Info]\nТекущее время сервера: {}'.format(date)
                 connect.send(msg.encode())
