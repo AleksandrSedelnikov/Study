@@ -14,7 +14,7 @@ def main():
         flag += 1
     if not "comment" in form:
         generate += "<h3>Не указан комментарий</h3>"
-    flag += 1
+        flag += 1
     if not "browser" in form:
         generate += "<h3>Не указан тип браузера</h3>"
         flag += 1
@@ -28,8 +28,8 @@ def main():
         if (browser == "ffox"):
             browser == "Firefox [code: {}]".format(browser)
         comment = form.getvalue("comment")
-        generage = "<h1>Привет, милорд {}</h1>\n<h2>Выбранный браузер: {}</h2>\n<h3>Ваш комментарий: {}</h3>".format(name,browser,comment)
-        print(generage)
+        generate = "<h1>Привет, милорд {}</h1>\n<h2>Выбранный браузер: {}</h2>\n<h3>Ваш комментарий: {}</h3>".format(name,browser,comment)
+        print(generate)
     else:
         print(generate)
     return 0
