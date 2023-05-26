@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Проверка хостов в диапазоне</title> <!--заголовок страницы-->
+</head>
+<body>
+<form name="uzl" action="cgi-bin/cgi_calculator.py" method="POST">  <!--форма для ввода-->
+    <p><b>введите первое число:</b><br>
+        <input type="text" size="40" name="one_chislo">
+    <p><b>введите второе число</b><br>
+        <input type="text" size="40" name="two_chislo">
+    <p><input type="radio" name="variant" value="*">Умножение</p>
+    <p><input type="radio" name="variant" value="/">Деление</p>
+    <p><input type="radio" name="variant" value="+">Сложение</p>
+    <p><input type="radio" name="variant" value="-">Вычитание</p>
+    <p><input type="radio" name="variant" value="^">Возведение первого числа в степень второго числа</p>
+    <p><input type="submit" value="Отправить"> <!--кнопка отправки-->
+<input type="reset" value="Очистить"></p> <!--кнопка очистки-->
+</form>
+</body>
+</html>
