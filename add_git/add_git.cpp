@@ -9,7 +9,9 @@ int main(){
     system("git add .");
     string var;
     cin >> var;
+    cout << var;
     if (var == "other") {
+        cout << "other";
         string commit;
         cin >> commit;
         string s = "git commit -m ";
@@ -19,6 +21,7 @@ int main(){
         system(command.c_str());
     }
     else {
+        cout << "auto";
         time_t sec;
         sec = time (NULL);
         string dt = asctime(localtime(&sec));
