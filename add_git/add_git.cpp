@@ -9,7 +9,7 @@ int main(){
     system("git add .");
     string var;
     cin >> var;
-    if (var == "другой") {
+    if (var == "other") {
         string commit;
         cin >> commit;
         string s = "git commit -m ";
