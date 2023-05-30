@@ -13,7 +13,7 @@ int main(){
     if (var == "other") {
         cout << "Enter other commit: ";
         string commit;
-        getline(cin, commit);
+        getline(cin, commit); /*обновление*/
         string s = "git commit -m ";
         string d{'"'};
         string k = "manual upd: ";
