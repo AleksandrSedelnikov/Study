@@ -3,7 +3,7 @@ import http.server
 
 def main():
     server_address = ("", 8000)
-    os.chdir("/home/aleksandrsedelnikov/testing_page/3laba")
+    os.chdir("своя директория с файлами")
     server = http.server.HTTPServer
     handler = http.server.CGIHTTPRequestHandler
     httpd = server(server_address, handler)
