@@ -8,10 +8,10 @@ using namespace std;
 int main(){
     system("git add .");
     string var;
+    cout << "Enter variation commiting[enter other]: ";
     cin >> var;
-    cout << var;
     if (var == "other") {
-        cout << "other";
+        cout << "Enter other commit: ";
         string commit;
         cin >> commit;
         string s = "git commit -m ";
