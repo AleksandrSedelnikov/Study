@@ -21,7 +21,7 @@ try:
                 continue
             try:
                 try:
-                    first_check = subprocess.check_output("nmap -sT {} | grep 'open'".format(response),stderr=subprocess.STDOUT,shell=True, universal_newlines=True)
+                    first_check = subprocess.check_output("nmap -sT {} | grep 'open'".format(response),shell=True, universal_newlines=True)
                     second_check = first_check.split()
                     second_check = [i for i in second_check if i != 'open']
                 except Exception as e:
