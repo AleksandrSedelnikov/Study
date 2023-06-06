@@ -14,7 +14,7 @@ else:
     dir = form.getvalue("dir_name")
     print("<title>Проверка директории {}</title>\n".format(dir))
     if (os.path.isdir('{}'.format(dir))):
-        count_files = subprocess.check_output("find {} -maxdepth 1 | wc -l", shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
+        count_files = subprocess.check_output("find {} -maxdepth 1 | wc -l".format(dir), shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
         if (count_files.find('find:') == -1):
             print("<h1>Количество файлов в директории [{}]:{}</h1>\n".format(dir,count_files))
         else:
