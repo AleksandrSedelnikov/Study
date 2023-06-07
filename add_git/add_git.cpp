@@ -2,13 +2,14 @@
 #include <math.h>
 #include <ctime>
 #include <string.h>
+#include <string>
 
 using namespace std;
 
 int main(){
     system("git add .");
     string var;
-    cout << "Enter variation commiting[enter other]: ";
+    cout << "Enter variation commiting[enter other] (no support Russian language): ";
     cin >> var;
     if (var == "other") {
         cout << "Enter other commit: ";
