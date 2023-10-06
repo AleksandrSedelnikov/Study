@@ -1,0 +1,3 @@
+PS1='привет родной\u\w'
+HOME='/home/AP103_20/D1'
+PATH=~/my_bin

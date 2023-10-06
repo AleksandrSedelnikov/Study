@@ -1,0 +1,9 @@
+mouth=`date +%m`
+echo $mouth
+files=`find / -type f -newermt 2023-$mouth-01 2>~/error`
+for i in $files
+do
+#data=`ls -l $i | awk '{print $6" "$7" "$8}'`
+creator=`ls -l $i | awk '{print $4}'`
+echo "$i: $creator" >> files
+done

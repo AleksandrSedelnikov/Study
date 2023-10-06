@@ -1,0 +1,13 @@
+ip=`ifconfig ens33 | awk '{print $2}' | head -n 2 | tail -n 1 | cut -d":" -f2`
+broadcast=`ifconfig ens33 | awk '{print $3}' | head -n 2 | tail -n 1 | cut -d":" -f2`
+IFS=.
+read -r i1 i2 i3 i4 <<< "$ip"
+read -r b1 b2 b3 b4 <<< "$broadcast"
+for ((i=1;i<$b4;i++))
+do
+result=`ping -c 1 -w 0.2 $i1.$i2.$i3.$i | tail -n 1 | cut -d"=" -f2 | cut -d"/" -f2`
+if [ "$result" != "" ]
+then
+echo -e "IP-adderss: $i1.$i2.$i3.$i\nВремя круговой задержки: $result ms"
+fi
+done

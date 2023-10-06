@@ -1,0 +1,12 @@
+for i in `find ~ -type f 2>~/error` # цикл по всем файлам домашней директории и поддиректорий
+do
+file_name=`echo $i | sed "s/.*\///"` # название файла
+name=`echo $i | sed "s/.*\///" | wc -c` # длина названия файла
+name_cur=`expr $name - 1` # точная длина названия файла
+if [ $name_cur -eq 4 ] # если длина равна 4
+then # то
+echo $file_name # выводится его имя
+result=`head -n 4 $i | tail -n 1` # берётся 4 строчка из файла
+echo $result >> F_eq4 # строчка записывается в файл F_eq4
+fi
+done

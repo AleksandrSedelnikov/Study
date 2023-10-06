@@ -1,0 +1,18 @@
+time_sum=0
+ip=`ip addr show ens33 | grep -v "inet6" | grep "inet" | awk '{print $2}'`
+id=`nmap -sn $ip 2>~/error`
+IP=`echo $id | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
+for i in $IP
+do
+time=`ping -c 1 $i | tail -n 1`
+time_cur=`echo $time | cut -d"=" -f2 | cut -d"/" -f1`
+time_value=`echo $time | awk '{print $5}'`
+if [ "$time_cur" != "" ]
+then
+time_sum=$(echo "scale=2;$time_sum + $time_cur" | bc)
+echo -e "IP сетевого узла: $i\nВремя: $time_cur $time_value"
+else
+echo -e "IP сетевого узла: $i\nВремя: ошибка"
+fi
+done
+echo "Суммарное время: $time_sum ms"

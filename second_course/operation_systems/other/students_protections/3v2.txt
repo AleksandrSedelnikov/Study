@@ -1,0 +1,7 @@
+echo -n "Введите права:(пример: rwxrwxrwx) ";read perm
+archives=`find ~ -name "*.tar*" -type f 2>~/error`
+for i in $archives
+do
+echo -e "Архив: $i\nФайлы согласно введённому параметру права:"
+tar -tvf $i 2>~/error | grep $perm
+done

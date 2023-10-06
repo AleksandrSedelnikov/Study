@@ -1,0 +1,11 @@
+# название файла должно быть spisk, а его содержимое снизу (каждый домен отдельная строчка)
+
+pds_m_main
+microsoft.com
+google.com
+AES-EEMOROZOVAPC
+mail.ru
+ubuntu-server
+SLA-L22
+Redmi4A-Smetanin
+

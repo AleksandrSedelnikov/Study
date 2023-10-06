@@ -1,0 +1,4 @@
+users=`cat /etc/passwd | cut -d":" -f1 | grep "1"`
+echo -e "Пользователи с 1 в логине:\n$users"
+
+# записать снизу в файл .bashrc

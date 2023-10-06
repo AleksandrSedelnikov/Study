@@ -1,0 +1,6 @@
+for i in `find ~ -type f 2>~/error`
+do
+chmod 700 $i
+done
+
+# записать в файл .bashrc

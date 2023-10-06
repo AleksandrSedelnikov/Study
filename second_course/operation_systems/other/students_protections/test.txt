@@ -1,0 +1,13 @@
+q=0
+p=int(input('¬ведите кол-во студентов: '))
+students=[0 for i in range(p)]
+krs=[0 for i in range(p)]
+f = open('baza.txt', 'w')
+while q<p:
+    students[q]=input('¬ведите фамилию студента и нажмите Enter: ')
+    krs[q]=input('¬ведите оценку контрольного срока студента: {} и нажмте Enter: '.format(students[q]))
+    f.write(students[q] + " - " + krs[q] + "\n")
+    q+=1
+f.close()
+for cntr in range(0,p):
+    print('%s has %s' % (students[cntr],krs[cntr]))

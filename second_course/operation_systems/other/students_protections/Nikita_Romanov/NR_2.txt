@@ -1,0 +1,6 @@
+namesinterface=`ifconfig | cut -d" " -f1` # названия сетевых интерфейсов
+for i in $namesinterface # цикл по содержимому переменной с названиями интерфейсов
+do
+IP=`ip addr show $i | grep -v "inet6" | grep "inet" | awk '{print $2}' | cut -d"/" -f1` # IPv4 интерфейса 
+echo -e "\033[01;33mInterface\033[00;0m: $i\n\033[01;38mIPv4 address\033[00;0m: $IP" # вывод названия
+done

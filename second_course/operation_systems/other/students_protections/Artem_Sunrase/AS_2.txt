@@ -1,0 +1,2 @@
+files=`find ~ -size +1b -type f 2>~/error` # список всех абсолютных путей до ненулевых файлов
+tar -zcf archive.tar.gz $files 1>/dev/null 2>~/error # создание сжатого архива с этими файлами

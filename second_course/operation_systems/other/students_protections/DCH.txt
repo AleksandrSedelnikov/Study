@@ -1,0 +1,10 @@
+trace=`traceroute -q 1 linux.org | awk 'NR>=2' | awk '{print $3}'` # в переменную trace записываются IPшники до linux.org
+for i in $trace # цикл по содержимому переменной trace
+do
+if [ "$i" != "" ] # если переменная i не равна пустоте
+then # то
+ip=`echo $i | cut -d"(" -f2 | cut -d")" -f1` # в переменную ip записывается ipшник вокруг которого убираются ( )
+result=`ping -c 1 $ip | grep "loss" | awk '{print $6}'` # пингуется ipшник, вырезается строчка где loss, а в ней 6 столбец, который содержит процент потерь
+echo "IP: $ip | Потери: $result" # выводится IP и процент потерь
+fi
+done

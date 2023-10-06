@@ -1,0 +1,6 @@
+namesinterface=`ifconfig | cut -d" " -f1`
+for i in $namesinterface
+do
+IP=`ip addr show $i | grep -v "inet6" | grep "inet" | awk '{print $2}' | cut -d"/" -f1`
+echo "Interface: $i | IPv4: $IP"
+done

@@ -1,0 +1,14 @@
+echo -n "введите абсолютный путь до файла: "; read file
+if [ -d $file ]
+then
+ls $file
+else
+type=`file $file | cut -d":" -f2`
+echo "Тип файла:$type"
+if [ -x $file ]
+then
+source $file
+else
+vi $file
+fi
+fi

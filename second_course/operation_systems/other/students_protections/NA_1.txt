@@ -1,0 +1,17 @@
+while true
+do
+read -r file <&4
+if [ -z "$file" ]
+then
+break
+fi
+host_name=`host $file | grep "has address" | awk '{print $4}'`
+echo "Host: $file"
+for i in $host_name
+do
+if [ "$i" != "" ]
+then
+echo "IP: $i | Hostname: $file"
+fi
+done
+done 4<spisk

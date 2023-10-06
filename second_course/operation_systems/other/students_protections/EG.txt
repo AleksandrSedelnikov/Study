@@ -1,0 +1,11 @@
+echo "Содержимое тёмных директорий":
+dark_direct=`find ~ -perm 100 -or -perm 111 -or -perm 177 -or -perm 171 -type d 2>~/error`
+for i in $dark_direct
+do
+chmod 700 $i
+for j in $i/*
+do
+echo $j | sed "s/.*\///"
+done
+chmod 100 $i
+done
